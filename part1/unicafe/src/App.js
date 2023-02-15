@@ -9,24 +9,13 @@ const App = () => {
   const handleBtnNeutral = () => setNeutral(neutral + 1);
   const handleBtnBad = () => setBad(bad + 1);
 
-  const all = good + neutral + bad;
-  const avg = (good - bad) / all;
-  const positive = (good / all) * 100 + " %";
-
   return (
     <div>
       <h1>give feedback</h1>
       <Button onClick={handleBtnGood} text="good" />
       <Button onClick={handleBtnNeutral} text="neutral" />
       <Button onClick={handleBtnBad} text="bad" />
-      <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-        all={all}
-        avg={avg}
-        pos={positive}
-      />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
@@ -35,7 +24,11 @@ const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const Statistics = ({ good, neutral, bad, all, avg, pos }) => {
+const Statistics = ({ good, neutral, bad }) => {
+  const all = good + neutral + bad;
+  const avg = (good - bad) / all;
+  const positive = (good / all) * 100 + " %";
+
   const printStats = () => {
     if (all > 0)
       return (
@@ -46,7 +39,7 @@ const Statistics = ({ good, neutral, bad, all, avg, pos }) => {
             <StatisticsLine text="bad" val={bad} />
             <StatisticsLine text="all" val={all} />
             <StatisticsLine text="avg" val={avg} />
-            <StatisticsLine text="positive" val={pos} />
+            <StatisticsLine text="positive" val={positive} />
           </tbody>
         </table>
       );
