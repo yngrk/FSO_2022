@@ -1,0 +1,19 @@
+.notification {
+  border: 2px solid black;
+  border-radius: 0.2rem;
+  padding: 5px;
+  font-weight: bold;
+  background-color: rgb(183, 231, 173);
+  color: rgb(45, 110, 32);
+  margin-bottom: 20px;
+}
+
+.error {
+  border: 2px solid black;
+  border-radius: 0.2rem;
+  padding: 5px;
+  font-weight: bold;
+  background-color: rgb(241, 190, 187);
+  color: rgb(71, 41, 24);
+  margin-bottom: 20px;
+}

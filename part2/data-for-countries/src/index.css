@@ -1,0 +1,144 @@
+:root {
+  --main-bg-color: #f3ece4;
+  --secondary-bg-color: #b1c1d1;
+  --main-color: #be494f;
+  --secondary-color: #de9b74;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  border: none;
+  background-color: rgb(197, 197, 197);
+  margin: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#country-info {
+  margin-top: 40px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+#country-info .country-tile:first-of-type {
+  margin-top: 15px;
+}
+
+#country-info .country-tile {
+  background-color: var(--secondary-color);
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#country-info .country-tile .title-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#country-info .country-tile .title-bar .expand {
+  border: none;
+  background: none;
+  display: flex;
+}
+
+#country-info .country-tile .title-bar .expand:hover {
+  cursor: pointer;
+}
+
+#country-info .country-tile .expanded-info {
+  margin: 10px 0;
+}
+
+#country-info .expanded-info {
+  display: flex;
+  flex-direction: column;
+}
+
+#country-info .weather {
+  align-self: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 5px 20px 5px 5px;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#country-info .weather .title {
+  font-variant: small-caps;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+#country-info .weather .top {
+  display: flex;
+  align-items: center;
+}
+
+#country-info .weather .icon {
+  height: 100px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr {
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+table tr:last-of-type {
+  border: none;
+}
+
+table tr .group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+table th {
+  text-align: left;
+  font-weight: 500;
+  font-variant: small-caps;
+}
+
+table td {
+  text-align: right;
+}
+
+#message {
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+#message .error {
+  border: 1px solid red;
+  border-radius: 0.2rem;
+  padding: 2px;
+  font-size: 0.8em;
+  color: rgb(109, 54, 54);
+  font-weight: bold;
+  background-color: rgb(255, 173, 173);
+  text-align: center;
+}
