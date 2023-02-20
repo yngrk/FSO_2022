@@ -4,9 +4,11 @@ const Persons = ({ persons, filter, onDelete }) => {
   return (
     <>
       {persons.map((person) => {
-        const included = person.name
-          .toLowerCase()
-          .includes(filter.toLowerCase());
+        let included;
+        if (filter.length === 0) included = true;
+        else {
+          included = person.name.toLowerCase().includes(filter.toLowerCase());
+        }
 
         if (included) {
           return (
