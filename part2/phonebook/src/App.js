@@ -60,20 +60,32 @@ const App = () => {
       number: newNumber,
     };
 
-    pbService.add(newPersonObj).then((addedObj) => {
-      setPersons([...persons, addedObj]);
-      setNewName("");
-      setNewNumber("");
-    });
+    pbService
+      .add(newPersonObj)
+      .then((addedObj) => {
+        setPersons([...persons, addedObj]);
+        setNewName("");
+        setNewNumber("");
 
-    // show notification message for 5 seconds
-    setNotificationMessage({
-      message: `${newName} added`,
-      type: "notification",
-    });
-    setTimeout(() => {
-      setNotificationMessage({ message: null, type: "notification" });
-    }, 5000);
+        // show notification message for 5 seconds
+        setNotificationMessage({
+          message: `${newName} added`,
+          type: "notification",
+        });
+        setTimeout(() => {
+          setNotificationMessage({ message: null, type: "notification" });
+        }, 5000);
+      })
+      .catch((error) => {
+        // show error message for 5 seconds
+        setNotificationMessage({
+          message: error.response.data.error,
+          type: "error",
+        });
+        setTimeout(() => {
+          setNotificationMessage({ message: null, type: "notification" });
+        }, 5000);
+      });
   };
 
   const deleteEntry = (id) => {
