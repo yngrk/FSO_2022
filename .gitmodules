@@ -1,3 +1,6 @@
 [submodule "part3/FSO_2022_p3_phonebook_backend"]
 	path = part3/FSO_2022_p3_phonebook_backend
 	url = git@github.com:yngrk/FSO_2022_p3_phonebook_backend.git
+[submodule "part4/FSO_2022_p4_bloglist_backend"]
+	path = part4/FSO_2022_p4_bloglist_backend
+	url = git@github.com:yngrk/FSO_2022_p4_bloglist_backend.git
