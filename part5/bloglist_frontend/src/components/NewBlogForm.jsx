@@ -16,22 +16,22 @@ function NewBlogForm({ createNewBlog }) {
         <div>
           <label htmlFor="title">
             Title:
-            <input id="title" name="Title" value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })} />
+            <input placeholder="new blog title" id="title" name="Title" value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })} />
           </label>
         </div>
         <div>
           <label htmlFor="author">
             Author:
-            <input id="author" name="Author" value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })} />
+            <input placeholder="new blog author" id="author" name="Author" value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })} />
           </label>
         </div>
         <div>
           <label htmlFor="url">
             Url:
-            <input id="url" name="Url" value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })} />
+            <input placeholder="new blog url" id="url" name="Url" value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })} />
           </label>
         </div>
-        <button type="submit">Create</button>
+        <button type="submit">create</button>
       </form>
     </>
   );

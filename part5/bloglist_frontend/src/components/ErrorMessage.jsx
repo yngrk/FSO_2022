@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 function ErrorMessage({ message }) {
   ErrorMessage.propTypes = {
-    message: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    message: PropTypes.object.isRequired,
   };
   if (message.type !== null) {
-    return (<div className={message.type}>{message.text}</div>);
+    return (<div id="error-msg" className={message.type}>{message.text}</div>);
   }
 }
 

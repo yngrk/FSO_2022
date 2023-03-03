@@ -18,9 +18,12 @@ function Blog({
     like(updateBlog);
   };
 
-  const toggleView = () => setView(!view);
+  const toggleView = () => {
+    setView(!view);
+  };
 
   const handleRemove = () => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Are you sure?')) {
       remove(blog.id);
     }
@@ -58,7 +61,7 @@ function Blog({
   );
 
   return (
-    <div>
+    <div className="blog">
       {!view && simpleView()}
       {view && fullView()}
     </div>

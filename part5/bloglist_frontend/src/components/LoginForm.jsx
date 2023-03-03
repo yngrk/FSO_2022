@@ -32,7 +32,7 @@ function LoginForm({ login }) {
             <input id="password" type="text" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
           </label>
         </div>
-        <button type="submit">Login</button>
+        <button id="login-button" type="submit">Login</button>
       </form>
     </>
   );
