@@ -1,25 +1,28 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    jest: true,
-    'cypress/globals': true,
+  'env': {
+    'browser': true,
+    'es2021': true,
+    'jest': true,
+    'cypress/globals': true
   },
-  extends: [
+  'extends': [
     'plugin:react/recommended',
-    'airbnb',
+    'google',
+    'prettier'
   ],
-  overrides: [
+  'overrides': [
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+  'parserOptions': {
+    'ecmaVersion': 'latest',
+    'sourceType': 'module',
   },
-  plugins: [
+  'plugins': [
     'react',
     'cypress',
   ],
-  rules: {
-    'react/prop-types': 'off',
+  'rules': {
+    'require-jsdoc': 0,
+    'react/prop-types': 0
   },
 };
+
