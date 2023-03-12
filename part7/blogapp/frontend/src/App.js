@@ -91,8 +91,6 @@ function App() {
     }
   };
 
-  const loginForm = () => <LoginForm login={handleLogin} />;
-
   const blogForm = () => (
     <>
       <h2>blogs</h2>
@@ -110,12 +108,14 @@ function App() {
     </>
   );
 
-  const newBlogForm = () => <NewBlogForm createNewBlog={handleNewBlog} />;
-
   return (
     <div>
       <ErrorMessage message={notification} />
-      {!user && <Togglable buttonLabel="log in">{loginForm()}</Togglable>}
+      {!user && (
+        <Togglable buttonLabel="log in">
+          <LoginForm login={handleLogin} />
+        </Togglable>
+      )}
       {user && (
         <div>
           <p>
@@ -124,7 +124,9 @@ function App() {
               Logout
             </button>
           </p>
-          <Togglable buttonLabel="new blog">{newBlogForm()}</Togglable>
+          <Togglable buttonLabel="new blog">
+            <NewBlogForm createNewBlog={handleNewBlog} />
+          </Togglable>
         </div>
       )}
       <div>{blogForm()}</div>
