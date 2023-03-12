@@ -17,9 +17,13 @@ import {
   updateAndSetBloglist,
 } from './reducers/bloglistSlice';
 import { setUser } from './reducers/userSlice';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useMatch } from 'react-router-dom';
 import Users from './components/Users';
 import { fetchAndSetUserlist } from './reducers/userlistSlice';
+import UserDetails from './components/UserDetails';
+import BlogDetails from './components/BlogDetails';
+import Navigation from './components/Navigation';
+import { Button } from 'react-bootstrap';
 
 function App() {
   const dispatch = useDispatch();
@@ -121,9 +125,20 @@ function App() {
     );
   };
 
+  const usermatch = useMatch('users/:id');
+  const matchedUser = usermatch
+    ? userlist.filter((u) => u.id === usermatch.params.id)
+    : null;
+
+  const blogmatch = useMatch('blogs/:id');
+  const matchedBlog = blogmatch
+    ? bloglist.filter((b) => b.id === blogmatch.params.id)
+    : null;
+
   return (
     <div>
       <ErrorMessage message={notification} />
+      <Navigation />
       {!user && (
         <Togglable buttonLabel="log in">
           <LoginForm login={handleLogin} />
@@ -133,15 +148,30 @@ function App() {
         <div>
           <p>
             {`${user.username} logged in `}
-            <button type="button" onClick={handleLogout}>
+            <Button type="button" onClick={handleLogout}>
               Logout
-            </button>
+            </Button>
           </p>
         </div>
       )}
       <Routes>
         <Route path="/" element={showMainFrame()} />
         <Route path="/users" element={<Users userlist={userlist} />} />
+        <Route
+          path="/blogs/:id"
+          element={
+            <BlogDetails
+              user={user}
+              like={handleLike}
+              remove={handleRemove}
+              blog={matchedBlog ? matchedBlog[0] : null}
+            />
+          }
+        />
+        <Route
+          path="/users/:id"
+          element={<UserDetails user={matchedUser ? matchedUser[0] : null} />}
+        />
       </Routes>
     </div>
   );

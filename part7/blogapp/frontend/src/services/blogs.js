@@ -29,6 +29,13 @@ const update = async (updatedObj) => {
   return response.data;
 };
 
+const addComment = async (content, blogId) => {
+  const response = await axios.put(`${baseUrl}/${blogId}/comments`, {
+    content,
+  });
+  return response.data;
+};
+
 const remove = async (id) => {
   const config = {
     headers: {
@@ -45,4 +52,5 @@ export default {
   create,
   update,
   remove,
+  addComment,
 };
