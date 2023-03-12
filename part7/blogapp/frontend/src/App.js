@@ -17,15 +17,20 @@ import {
   updateAndSetBloglist,
 } from './reducers/bloglistSlice';
 import { setUser } from './reducers/userSlice';
+import { Route, Routes } from 'react-router-dom';
+import Users from './components/Users';
+import { fetchAndSetUserlist } from './reducers/userlistSlice';
 
 function App() {
   const dispatch = useDispatch();
   const notification = useSelector((state) => state.notification);
   const bloglist = useSelector((state) => state.bloglist);
+  const userlist = useSelector((state) => state.userlist);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(fetchAndSetBloglist());
+    dispatch(fetchAndSetUserlist());
   }, []);
 
   useEffect(() => {
@@ -91,22 +96,30 @@ function App() {
     }
   };
 
-  const blogForm = () => (
-    <>
-      <h2>blogs</h2>
-      {[...bloglist]
-        .sort((a, b) => (a.likes > b.likes ? -1 : 1))
-        .map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            like={handleLike}
-            remove={handleRemove}
-            user={user}
-          />
-        ))}
-    </>
-  );
+  const showMainFrame = () => {
+    return (
+      <div>
+        {user && (
+          <Togglable buttonLabel="create new blog">
+            <NewBlogForm createNewBlog={handleNewBlog} />
+          </Togglable>
+        )}
+
+        <h2>blogs</h2>
+        {[...bloglist]
+          .sort((a, b) => (a.likes > b.likes ? -1 : 1))
+          .map((blog) => (
+            <Blog
+              key={blog.id}
+              blog={blog}
+              like={handleLike}
+              remove={handleRemove}
+              user={user}
+            />
+          ))}
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -119,17 +132,17 @@ function App() {
       {user && (
         <div>
           <p>
-            {`${user.username} logged in`}
+            {`${user.username} logged in `}
             <button type="button" onClick={handleLogout}>
               Logout
             </button>
           </p>
-          <Togglable buttonLabel="new blog">
-            <NewBlogForm createNewBlog={handleNewBlog} />
-          </Togglable>
         </div>
       )}
-      <div>{blogForm()}</div>
+      <Routes>
+        <Route path="/" element={showMainFrame()} />
+        <Route path="/users" element={<Users userlist={userlist} />} />
+      </Routes>
     </div>
   );
 }
