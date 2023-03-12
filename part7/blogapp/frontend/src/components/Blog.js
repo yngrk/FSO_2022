@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-function Blog({
-  blog, like, user, remove,
-}) {
+function Blog({ blog, like, user, remove }) {
   const [view, setView] = useState(false);
 
   const blogStyle = {
@@ -14,8 +12,8 @@ function Blog({
   };
 
   const handleLike = () => {
-    const updateBlog = { ...blog, likes: blog.likes + 1, user: blog.user.id };
-    like(updateBlog);
+    const updatedBlog = { ...blog, likes: blog.likes + 1, user: blog.user.id };
+    like(updatedBlog);
   };
 
   const toggleView = () => {
@@ -31,9 +29,10 @@ function Blog({
 
   const simpleView = () => (
     <div style={blogStyle}>
-      {`${blog.title}, ${blog.author}`}
-      {' '}
-      <button type="button" onClick={toggleView}>view</button>
+      {`${blog.title}, ${blog.author}`}{' '}
+      <button type="button" onClick={toggleView}>
+        view
+      </button>
     </div>
   );
 
@@ -41,7 +40,9 @@ function Blog({
     <div style={blogStyle}>
       <div>
         {`${blog.title}, ${blog.author} `}
-        <button type="button" onClick={toggleView}>close</button>
+        <button type="button" onClick={toggleView}>
+          close
+        </button>
       </div>
       <div>
         {'url: '}
@@ -49,13 +50,17 @@ function Blog({
       </div>
       <div>
         {`likes: ${blog.likes} `}
-        <button type="button" onClick={handleLike}>like</button>
+        <button type="button" onClick={handleLike}>
+          like
+        </button>
       </div>
+      <div>{`user: ${blog.user.name}`}</div>
       <div>
-        {`user: ${blog.user.name}`}
-      </div>
-      <div>
-        {user && blog.user.username === user.username && <button type="button" onClick={handleRemove}>remove</button>}
+        {user && blog.user.username === user.username && (
+          <button type="button" onClick={handleRemove}>
+            remove
+          </button>
+        )}
       </div>
     </div>
   );

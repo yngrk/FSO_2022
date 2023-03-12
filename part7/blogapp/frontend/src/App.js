@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Blog from './components/Blog';
 import ErrorMessage from './components/ErrorMessage';
 import blogService from './services/blogs';
@@ -10,23 +10,29 @@ import Togglable from './components/Togglable';
 import NewBlogForm from './components/NewBlogForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from './reducers/notificationSlice';
+import {
+  createAndSetBloglist,
+  fetchAndSetBloglist,
+  removeAndSetBloglist,
+  updateAndSetBloglist,
+} from './reducers/bloglistSlice';
+import { setUser } from './reducers/userSlice';
 
 function App() {
   const dispatch = useDispatch();
   const notification = useSelector((state) => state.notification);
-
-  const [blogs, setBlogs] = useState([]);
-  const [user, setUser] = useState(null);
+  const bloglist = useSelector((state) => state.bloglist);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    blogService.getAll().then((fetchedBlogs) => setBlogs(fetchedBlogs));
+    dispatch(fetchAndSetBloglist());
   }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
-      setUser(loggedUser);
+      dispatch(setUser(loggedUser));
       blogService.setToken(loggedUser.token);
     }
   }, []);
@@ -45,7 +51,7 @@ function App() {
 
       blogService.setToken(userData.token);
 
-      setUser(userData);
+      dispatch(setUser(userData));
 
       dispatch(showNotification('login successful', 'info'));
     } catch (exception) {
@@ -56,27 +62,22 @@ function App() {
   const handleLogout = () => {
     window.localStorage.clear();
     blogService.setToken(null);
-    setUser(null);
+    dispatch(setUser(null));
     dispatch(showNotification('logout successful', 'info'));
   };
 
   const handleNewBlog = async (blog) => {
     try {
-      await blogService.create(blog);
-
-      // get blogs from server again to populate userdata
-      blogService.getAll().then((fetchedBlogs) => setBlogs(fetchedBlogs));
-
+      dispatch(createAndSetBloglist(blog));
       dispatch(showNotification(`New Blog was added: ${blog.title}`, 'info'));
     } catch (exception) {
       dispatch(showNotification(exception.message, 'error'));
     }
   };
 
-  const handleLike = async (updateBlog) => {
+  const handleLike = async (updatedBlog) => {
     try {
-      await blogService.update(updateBlog);
-      await blogService.getAll().then((fetchedBlogs) => setBlogs(fetchedBlogs));
+      dispatch(updateAndSetBloglist(updatedBlog));
     } catch (exception) {
       dispatch(showNotification(exception.message, 'error'));
     }
@@ -84,8 +85,7 @@ function App() {
 
   const handleRemove = async (id) => {
     try {
-      await blogService.remove(id);
-      await blogService.getAll().then((fetchedBlogs) => setBlogs(fetchedBlogs));
+      dispatch(removeAndSetBloglist(id));
     } catch (exception) {
       dispatch(showNotification(exception.message, 'error'));
     }
@@ -96,7 +96,7 @@ function App() {
   const blogForm = () => (
     <>
       <h2>blogs</h2>
-      {blogs
+      {[...bloglist]
         .sort((a, b) => (a.likes > b.likes ? -1 : 1))
         .map((blog) => (
           <Blog

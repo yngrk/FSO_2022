@@ -24,8 +24,8 @@ const create = async (newObj) => {
   return response.data;
 };
 
-const update = async (updateObj) => {
-  const response = await axios.put(`${baseUrl}/${updateObj.id}`, updateObj);
+const update = async (updatedObj) => {
+  const response = await axios.put(`${baseUrl}/${updatedObj.id}`, updatedObj);
   return response.data;
 };
 
@@ -40,5 +40,9 @@ const remove = async (id) => {
 };
 
 export default {
-  getAll, setToken, create, update, remove,
+  getAll,
+  setToken,
+  create,
+  update,
+  remove,
 };
